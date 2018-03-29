@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Progress Bar - Web Component</title>
+    <script src="./progress-bar-es6.js"></script>
+    <script src="./progress-bar-es5.js"></script>
+</head>
+<body>
+<h1>Progress Bar - Web Component</h1>
+<hr>
+<h3>ES6</h3>
+<progress-bar bgColor="#673AB7"></progress-bar>
+
+<h3>ES5</h3>
+<progress-bar2 bgColor="#ff5722"></progress-bar2>
+
+<script>
+(function(document){
+    //ES6
+    var progressBars_es6 = document.querySelectorAll('progress-bar');
+    var complete = 0;
+    progressBars_es6.forEach(elem =>{
+        var processInterval = setInterval(()=>{
+            complete +=1;
+            if(complete<=100){
+                elem.setAttribute('complete', complete);
+            }else{
+                clearInterval(processInterval);
+            }
+        }, 100);
+    });
+
+    //ES5
+    var progressBars_es5 = document.getElementsByTagName('progress-bar2');
+    var complete2 = 0;
+    for(var i=progressBars_es5.length-1; i>=0; i--){
+        (function(index){
+            var processInterval = setInterval(()=>{
+                complete2 +=1;
+                if(complete2<=100){
+                    progressBars_es5[index].setAttribute('complete', complete2);
+                }else{
+                    clearInterval(processInterval);
+                }
+            }, 100);
+        })(i);
+    }
+    
+})(document);
+</script>
+</body>
+</html>
